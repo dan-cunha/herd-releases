@@ -199,6 +199,23 @@
     overflow-wrap: anywhere;
   }
 
+  pre {
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: 0.86em;
+    background: var(--tint);
+    margin: 12px 0 0;
+    padding: 12px 14px;
+    border-radius: 8px;
+    overflow-x: auto;
+  }
+  pre code {
+    font-size: inherit;
+    background: none;
+    padding: 0;
+    border-radius: 0;
+    overflow-wrap: normal;
+  }
+
   li a { color: var(--ink); text-decoration: underline; text-underline-offset: 3px; }
 
   .requirements {
@@ -245,9 +262,22 @@
   <section class="setup">
     <h2>Setup</h2>
     <ol>
-      <li>Unzip the download, drag <code>Herd.app</code> into <code>/Applications</code>, and open it. It's signed and notarized.</li>
+      <li>Unzip the download, drag <code>Herd.app</code> into <code>/Applications</code>, and open it.</li>
       <li>On first launch, Herd copies <code>~/.config/waveterm</code> into <code>~/.config/waveterm-herd</code>. If that Wave config has auto-update off, Herd won't check hourly; <strong>Herd &rsaquo; Check for Updates</strong> still works.</li>
-      <li>Permission prompts in the pane need the <code>PermissionRequest</code> hook from Dan's dotfiles (<code>base/.claude/settings.json</code>). Stow the dotfiles.</li>
+      <li>Permission prompts in the Herd pane need a Claude Code <code>PermissionRequest</code> hook. Add this to <code>~/.claude/settings.json</code>, merging into an existing <code>"hooks"</code> object if there is one:
+<pre><code>"hooks": {
+  "PermissionRequest": [
+    {
+      "hooks": [
+        {
+          "type": "command",
+          "command": "/Applications/Herd.app/Contents/MacOS/cc-permission-bridge",
+          "timeout": 86400
+        }
+      ]
+    }
+  ]
+}</code></pre></li>
     </ol>
     <p class="requirements"><strong>Requirements:</strong> macOS on Apple Silicon only</p>
   </section>
