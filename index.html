@@ -218,6 +218,34 @@
 
   li a { color: var(--ink); text-decoration: underline; text-underline-offset: 3px; }
 
+  .agent { margin-top: 4px; padding-top: 16px; border-top: 1px solid var(--line); }
+  .agent-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px 16px;
+  }
+  .agent-lead { margin: 0; font-size: 16px; }
+  .copy {
+    appearance: none;
+    border: 0;
+    cursor: pointer;
+    padding: 6px 14px;
+    background-color: var(--accent);
+    color: var(--on-accent);
+    border-radius: 8px;
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 1.4;
+    transition: background-color 150ms var(--ease), transform 150ms var(--ease);
+  }
+  .copy:hover { background-color: var(--accent-hover); }
+  .copy:active { transform: scale(0.98); }
+  .copy:focus-visible { outline: 3px solid var(--ink); outline-offset: 4px; }
+  .agent pre { white-space: pre-wrap; overflow-wrap: anywhere; }
+
   .requirements {
     margin: 4px 0 0;
     padding-top: 16px;
@@ -279,6 +307,16 @@
   ]
 }</code></pre></li>
     </ol>
+    <div class="agent">
+      <div class="agent-head">
+        <p class="agent-lead">Or give this to your agent:</p>
+        <button type="button" class="copy" id="copy-prompt">Copy</button>
+      </div>
+<pre><code id="agent-prompt">Set up Herd on this Mac:
+1. Download the latest Herd-darwin-arm64-*.zip from https://github.com/dan-cunha/herd-releases/releases/latest, unzip it, and move Herd.app into /Applications. If an older Herd.app is there and Herd is running, stop and ask me to quit it first.
+2. Add a Claude Code PermissionRequest hook to ~/.claude/settings.json that runs /Applications/Herd.app/Contents/MacOS/cc-permission-bridge with a timeout of 86400. Merge it into the existing "hooks" object and keep every existing hook. Check the file is still valid JSON.
+3. Don't launch Herd. Tell me when it's ready.</code></pre>
+    </div>
     <p class="requirements"><strong>Requirements:</strong> macOS on Apple Silicon only</p>
   </section>
 </main>
@@ -296,6 +334,47 @@
       document.getElementById("version").textContent =
         `v${version} · Apple Silicon`;
     } catch {}
+  })();
+</script>
+<script>
+  (() => {
+    const button = document.getElementById("copy-prompt");
+    const prompt = document.getElementById("agent-prompt");
+    let resetTimer;
+
+    const copyWithTextarea = (text) => {
+      const area = document.createElement("textarea");
+      area.value = text;
+      area.setAttribute("readonly", "");
+      area.style.cssText = "position:fixed;top:0;left:0;opacity:0;pointer-events:none";
+      document.body.appendChild(area);
+      area.select();
+      try {
+        return document.execCommand("copy");
+      } finally {
+        document.body.removeChild(area);
+      }
+    };
+
+    const copyText = async (text) => {
+      try {
+        await navigator.clipboard.writeText(text);
+        return true;
+      } catch {
+        try {
+          return copyWithTextarea(text);
+        } catch {
+          return false;
+        }
+      }
+    };
+
+    button.addEventListener("click", async () => {
+      if (!(await copyText(prompt.textContent))) return;
+      button.textContent = "Copied";
+      clearTimeout(resetTimer);
+      resetTimer = setTimeout(() => { button.textContent = "Copy"; }, 1500);
+    });
   })();
 </script>
 </body>
