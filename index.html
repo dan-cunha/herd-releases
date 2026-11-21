@@ -91,14 +91,6 @@
     color: var(--secondary);
   }
 
-  .tagline {
-    margin: 12px 0 0;
-    font-family: "IBM Plex Mono", ui-monospace, monospace;
-    font-size: 15px;
-    color: var(--muted);
-  }
-  .tagline::before { content: "> "; }
-
   .actions {
     margin-top: 32px;
     display: flex;
@@ -220,7 +212,7 @@
     overflow-wrap: inherit;
   }
 
-  li a, .tagline a { color: var(--ink); text-decoration: underline; text-underline-offset: 4px; }
+  li a, .lede a { color: var(--ink); text-decoration: underline; text-underline-offset: 4px; }
 
   .agent { margin-top: 4px; padding-top: 16px; border-top: 1px solid var(--line); }
   .agent-head {
@@ -292,8 +284,7 @@
   <section class="hero">
     <img class="logo" src="assets/herd.webp" width="880" height="660" alt="Herd logo, an orange pixel-art creature">
     <h1>Herd</h1>
-    <p class="lede">Wave Terminal with a pane that watches your Claude Code sessions</p>
-    <p class="tagline">A fork of <a href="https://www.waveterm.dev/" rel="noopener">Wave Terminal</a></p>
+    <p class="lede">A fork of <a href="https://www.waveterm.dev/" rel="noopener">Wave Terminal</a> with a pane that watches your Claude Code sessions.</p>
     <div class="actions">
       <a class="btn" id="download" href="https://github.com/dan-cunha/herd-releases/releases/latest">
         Download for macOS
