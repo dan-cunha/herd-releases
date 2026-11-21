@@ -9,32 +9,31 @@
 <link rel="icon" href="assets/herd-logo.webp" type="image/webp">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500&family=Pixelify+Sans:wght@500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500&family=Pixelify+Sans:wght@500&display=swap" rel="stylesheet">
 <style>
   :root {
     --bg: #f6efe4;
-    --bg-grid: rgba(60, 35, 10, 0.07);
     --panel: #fffaf1;
     --ink: #2a1a0c;
+    --secondary: #5a4634;
     --muted: #6e5a46;
-    --line: #2a1a0c;
+    --line: rgba(42, 26, 12, 0.1);
+    --tint: rgba(42, 26, 12, 0.07);
     --accent: #f86828;
-    --accent-ink: #b8430a;
+    --accent-hover: #ee5a18;
     --on-accent: #231207;
-    --code-bg: rgba(248, 104, 40, 0.14);
-    --shadow: #2a1a0c;
+    --ease: cubic-bezier(0.22, 1, 0.36, 1);
   }
   @media (prefers-color-scheme: dark) {
     :root {
       --bg: #17110c;
-      --bg-grid: rgba(255, 190, 140, 0.05);
       --panel: #211811;
       --ink: #f4e8da;
+      --secondary: #cdbba8;
       --muted: #b09c88;
-      --line: #4a3626;
-      --accent-ink: #ff8a50;
-      --code-bg: rgba(248, 104, 40, 0.18);
-      --shadow: #f86828;
+      --line: rgba(244, 232, 218, 0.1);
+      --tint: rgba(244, 232, 218, 0.08);
+      --accent-hover: #ff7a3d;
     }
   }
 
@@ -46,10 +45,6 @@
     margin: 0;
     min-height: 100vh;
     background-color: var(--bg);
-    background-image:
-      linear-gradient(var(--bg-grid) 1px, transparent 1px),
-      linear-gradient(90deg, var(--bg-grid) 1px, transparent 1px);
-    background-size: 24px 24px;
     color: var(--ink);
     font-family: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
     font-size: 17px;
@@ -67,93 +62,100 @@
   }
 
   .hero {
-    animation: rise 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+    animation: rise 0.4s var(--ease) both;
   }
 
   .logo {
     display: block;
-    width: min(100%, 300px);
+    width: min(100%, 440px);
     height: auto;
-    image-rendering: pixelated;
-    margin: 0 0 8px -6px;
-    filter: drop-shadow(0 18px 0 rgba(0, 0, 0, 0.08));
-    animation: bob 3.2s steps(2, end) infinite;
+    margin: 0 0 16px;
   }
 
   h1 {
     font-family: "Pixelify Sans", ui-monospace, monospace;
-    font-weight: 700;
+    font-weight: 500;
     font-size: clamp(64px, 12vw, 112px);
     line-height: 0.95;
     letter-spacing: -0.01em;
     margin: 0;
-    color: var(--accent);
+    color: var(--ink);
+    text-wrap: balance;
+  }
+
+  .lede {
+    margin: 16px 0 0;
+    max-width: 36rem;
+    font-size: 18px;
+    line-height: 28px;
+    color: var(--secondary);
   }
 
   .tagline {
-    margin: 10px 0 0;
+    margin: 12px 0 0;
     font-family: "IBM Plex Mono", ui-monospace, monospace;
     font-size: 15px;
     color: var(--muted);
   }
-  .tagline::before { content: "> "; color: var(--accent-ink); }
+  .tagline::before { content: "> "; color: var(--muted); }
 
   .actions {
     margin-top: 32px;
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    gap: 14px 20px;
+    gap: 12px 24px;
   }
 
   .btn {
     display: inline-flex;
     flex-direction: column;
-    gap: 2px;
-    padding: 14px 26px 13px;
-    background: var(--accent);
+    gap: 4px;
+    padding: 12px 24px;
+    background-color: var(--accent);
     color: var(--on-accent);
     text-decoration: none;
-    border: 2px solid var(--line);
-    box-shadow: 6px 6px 0 var(--shadow);
+    border-radius: 10px;
     font-family: "Pixelify Sans", ui-monospace, monospace;
-    font-weight: 700;
+    font-weight: 500;
     font-size: 24px;
     line-height: 1.1;
-    transition: transform 0.08s steps(2, end), box-shadow 0.08s steps(2, end);
+    transition: background-color 150ms var(--ease), transform 150ms var(--ease);
   }
   .btn small {
     font-family: "IBM Plex Mono", ui-monospace, monospace;
     font-weight: 500;
     font-size: 13px;
-    opacity: 0.8;
   }
-  .btn:hover { transform: translate(3px, 3px); box-shadow: 3px 3px 0 var(--shadow); }
-  .btn:active { transform: translate(6px, 6px); box-shadow: 0 0 0 var(--shadow); }
+  #version { font-variant-numeric: tabular-nums; }
+  .btn:hover { background-color: var(--accent-hover); }
+  .btn:active { transform: scale(0.98); }
 
-  a:focus-visible { outline: 3px solid var(--accent-ink); outline-offset: 4px; }
+  a:focus-visible { outline: 3px solid var(--ink); outline-offset: 4px; }
 
   .all-releases {
     font-family: "IBM Plex Mono", ui-monospace, monospace;
     font-size: 13px;
-    color: var(--accent-ink);
+    color: var(--muted);
+    text-decoration: underline;
     text-underline-offset: 4px;
   }
 
   .setup {
     background: var(--panel);
-    border: 2px solid var(--line);
-    box-shadow: 8px 8px 0 var(--bg-grid);
-    padding: clamp(22px, 4vw, 36px);
-    animation: rise 0.7s 0.12s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: clamp(24px, 4vw, 32px);
+    animation: rise 0.4s 0.06s var(--ease) both;
   }
 
   h2 {
     font-family: "Pixelify Sans", ui-monospace, monospace;
-    font-weight: 700;
+    font-weight: 500;
     font-size: 30px;
     line-height: 1;
-    margin: 0 0 22px;
+    margin: 0 0 24px;
+    text-wrap: balance;
   }
 
   ol {
@@ -174,31 +176,35 @@
     position: absolute;
     left: 0;
     top: 1px;
-    width: 30px;
-    height: 30px;
+    width: 28px;
+    height: 28px;
     display: grid;
     place-items: center;
-    background: var(--accent);
-    color: var(--on-accent);
+    border-radius: 6px;
+    background: var(--tint);
+    color: var(--ink);
     font-family: "Pixelify Sans", ui-monospace, monospace;
-    font-weight: 700;
-    font-size: 17px;
+    font-weight: 500;
+    font-size: 16px;
   }
+
+  strong { font-weight: 500; }
 
   code {
     font-family: "IBM Plex Mono", ui-monospace, monospace;
     font-size: 0.86em;
-    background: var(--code-bg);
-    padding: 1px 6px;
+    background: var(--tint);
+    padding: 0 4px;
+    border-radius: 4px;
     overflow-wrap: anywhere;
   }
 
-  li a { color: var(--accent-ink); text-underline-offset: 3px; }
+  li a { color: var(--ink); text-decoration: underline; text-underline-offset: 3px; }
 
   .requirements {
     margin: 4px 0 0;
-    padding-top: 18px;
-    border-top: 2px dashed var(--line);
+    padding-top: 16px;
+    border-top: 1px solid var(--line);
     font-family: "IBM Plex Mono", ui-monospace, monospace;
     font-size: 14px;
     color: var(--muted);
@@ -206,16 +212,13 @@
   .requirements strong { color: var(--ink); font-weight: 500; }
 
   @keyframes rise {
-    from { opacity: 0; transform: translateY(14px); }
+    from { opacity: 0; transform: translateY(12px); }
     to { opacity: 1; transform: none; }
-  }
-  @keyframes bob {
-    50% { transform: translateY(-6px); }
   }
 
   @media (max-width: 800px) {
     .page { grid-template-columns: minmax(0, 1fr); }
-    .logo { width: min(70%, 240px); }
+    .logo { width: min(70%, 320px); }
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -226,8 +229,9 @@
 <body>
 <main class="page">
   <section class="hero">
-    <img class="logo" src="assets/herd-logo.webp" width="360" height="270" alt="Herd logo, an orange pixel-art creature">
+    <img class="logo" src="assets/herd.webp" width="880" height="660" alt="Herd logo, an orange pixel-art creature">
     <h1>Herd</h1>
+    <p class="lede">Wave Terminal with a pane that watches your Claude Code sessions</p>
     <p class="tagline">A fork of Wave Terminal</p>
     <div class="actions">
       <a class="btn" id="download" href="https://github.com/dan-cunha/herd-releases/releases/latest">
@@ -247,7 +251,7 @@
       <li>The Herd pane's UI module isn't in the release. Copy <code>~/Library/Application Support/Herd/ui/</code> (<code>herd.js</code>, <code>herd.css</code>) from an existing Herd machine to the same path.</li>
       <li>Permission prompts in the pane need the <code>PermissionRequest</code> hook from Dan's dotfiles (<code>base/.claude/settings.json</code>). Stow the dotfiles.</li>
     </ol>
-    <p class="requirements"><strong>Requirements:</strong> macOS on Apple Silicon only.</p>
+    <p class="requirements"><strong>Requirements:</strong> macOS on Apple Silicon only</p>
   </section>
 </main>
 <script>
