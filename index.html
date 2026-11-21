@@ -247,8 +247,6 @@
     <ol>
       <li>Unzip the download, drag <code>Herd.app</code> into <code>/Applications</code>, and open it. It's signed and notarized.</li>
       <li>On first launch, Herd copies <code>~/.config/waveterm</code> into <code>~/.config/waveterm-herd</code>. If that Wave config has auto-update off, Herd won't check hourly; <strong>Herd &rsaquo; Check for Updates</strong> still works.</li>
-      <li>The Herd pane needs the Herd menu-bar widget, which provides <code>monitor-dump</code> at <code>~/Applications/Herd.app</code>. Clone the private <a href="https://github.com/dan-cunha/herd"><code>dan-cunha/herd</code></a> repo and run <code>bash scripts/install.sh</code> (needs Swift / Xcode command line tools).</li>
-      <li>The Herd pane's UI module isn't in the release. Copy <code>~/Library/Application Support/Herd/ui/</code> (<code>herd.js</code>, <code>herd.css</code>) from an existing Herd machine to the same path.</li>
       <li>Permission prompts in the pane need the <code>PermissionRequest</code> hook from Dan's dotfiles (<code>base/.claude/settings.json</code>). Stow the dotfiles.</li>
     </ol>
     <p class="requirements"><strong>Requirements:</strong> macOS on Apple Silicon only</p>
