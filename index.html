@@ -97,7 +97,7 @@
     font-size: 15px;
     color: var(--muted);
   }
-  .tagline::before { content: "> "; color: var(--muted); }
+  .tagline::before { content: "> "; }
 
   .actions {
     margin-top: 32px;
@@ -115,7 +115,7 @@
     background-color: var(--accent);
     color: var(--on-accent);
     text-decoration: none;
-    border-radius: 10px;
+    border-radius: 8px;
     font-family: "Pixelify Sans", ui-monospace, monospace;
     font-weight: 500;
     font-size: 24px;
@@ -139,13 +139,15 @@
     color: var(--muted);
     text-decoration: underline;
     text-underline-offset: 4px;
+    transition: color 150ms var(--ease);
   }
+  .all-releases:hover { color: var(--ink); }
 
   .setup {
     background: var(--panel);
     border: 1px solid var(--line);
     border-radius: 16px;
-    padding: clamp(24px, 4vw, 32px);
+    padding: clamp(20px, 4vw, 32px);
     animation: rise 0.4s 0.06s var(--ease) both;
   }
 
@@ -204,7 +206,7 @@
     font-size: 0.86em;
     background: var(--tint);
     margin: 12px 0 0;
-    padding: 12px 14px;
+    padding: 12px 16px;
     border-radius: 8px;
     overflow-x: auto;
     white-space: pre-wrap;
@@ -218,7 +220,7 @@
     overflow-wrap: inherit;
   }
 
-  li a, .tagline a { color: var(--ink); text-decoration: underline; text-underline-offset: 3px; }
+  li a, .tagline a { color: var(--ink); text-decoration: underline; text-underline-offset: 4px; }
 
   .agent { margin-top: 4px; padding-top: 16px; border-top: 1px solid var(--line); }
   .agent-head {
@@ -233,7 +235,7 @@
     appearance: none;
     border: 0;
     cursor: pointer;
-    padding: 6px 14px;
+    padding: 8px 16px;
     background-color: var(--accent);
     color: var(--on-accent);
     border-radius: 8px;
@@ -270,9 +272,14 @@
     to { opacity: 1; transform: none; }
   }
 
+  @media (min-width: 801px) and (min-height: 720px) {
+    .hero { position: sticky; top: clamp(28px, 6vw, 72px); }
+  }
+
   @media (max-width: 800px) {
     .page { grid-template-columns: minmax(0, 1fr); }
     .logo { width: min(70%, 320px); }
+    li pre { margin-left: -48px; font-size: 13px; }
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -326,7 +333,7 @@
 3. Don't launch Herd. Tell me when it's ready.</code></pre>
     </div>
     <aside class="note">
-      <strong>Already use Wave?</strong> Herd runs beside it with its own settings. On first launch, if you have a Wave config (<code>~/.config/waveterm</code>), Herd copies it into <code>~/.config/waveterm-herd</code> &mdash; your workspaces and saved secrets aren't copied. If auto-update is off in that config, Herd won't check hourly; <strong>Herd &rsaquo; Check for Updates</strong> still works.
+      <strong>Already use Wave?</strong> Herd runs beside it with its own settings. On first launch, if you have a Wave config (<code>~/.config/waveterm</code>), Herd copies it into <code>~/.config/waveterm-herd</code>; your workspaces and saved secrets aren't copied. If auto-update is off in that config, Herd won't check hourly; <strong>Herd &rsaquo; Check for Updates</strong> still works.
     </aside>
     <p class="requirements"><strong>Requirements:</strong> macOS on Apple Silicon only</p>
   </section>
