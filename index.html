@@ -247,6 +247,14 @@
   .copy:active { transform: scale(0.98); }
   .copy:focus-visible { outline: 3px solid var(--ink); outline-offset: 4px; }
 
+  .note {
+    margin: 20px 0 16px;
+    font-size: 15px;
+    line-height: 1.5;
+    color: var(--secondary);
+  }
+  .note strong { color: var(--ink); }
+
   .requirements {
     margin: 4px 0 0;
     padding-top: 16px;
@@ -292,7 +300,6 @@
     <h2>Setup</h2>
     <ol>
       <li>Unzip the download, drag <code>Herd.app</code> into <code>/Applications</code>, and open it.</li>
-      <li>On first launch, Herd copies <code>~/.config/waveterm</code> into <code>~/.config/waveterm-herd</code>. If that Wave config has auto-update off, Herd won't check hourly; <strong>Herd &rsaquo; Check for Updates</strong> still works.</li>
       <li>Permission prompts in the Herd pane need a Claude Code <code>PermissionRequest</code> hook. Add this to <code>~/.claude/settings.json</code>, merging into an existing <code>"hooks"</code> object if there is one:
 <pre><code>"hooks": {
   "PermissionRequest": [
@@ -318,6 +325,9 @@
 2. Add a Claude Code PermissionRequest hook to ~/.claude/settings.json that runs /Applications/Herd.app/Contents/MacOS/cc-permission-bridge with a timeout of 86400. Merge it into the existing "hooks" object and keep every existing hook. Check the file is still valid JSON.
 3. Don't launch Herd. Tell me when it's ready.</code></pre>
     </div>
+    <aside class="note">
+      <strong>Already use Wave?</strong> Herd runs beside it with its own settings. On first launch, if you have a Wave config (<code>~/.config/waveterm</code>), Herd copies it into <code>~/.config/waveterm-herd</code> &mdash; your workspaces and saved secrets aren't copied. If auto-update is off in that config, Herd won't check hourly; <strong>Herd &rsaquo; Check for Updates</strong> still works.
+    </aside>
     <p class="requirements"><strong>Requirements:</strong> macOS on Apple Silicon only</p>
   </section>
 </main>
